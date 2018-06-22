@@ -251,7 +251,7 @@ void publish_frame(pho::api::PFrame MyFrame){
         sensor_msgs::Image texture, confidence_map, normal_map;
 	sensor_msgs::Image depth;
         ros::Time       timeNow         = ros::Time::now();
-        std::string     frame           = "camera";
+        std::string     frame           = "camera_link";
 
         texture.header.stamp          = timeNow;
         texture.header.frame_id       = frame;
@@ -305,7 +305,7 @@ void publish_frame(pho::api::PFrame MyFrame){
         std::cout << "publishing data" << std::endl;
         sensor_msgs::PointCloud2 output_cloud;
         pcl::toROSMsg(cloud, output_cloud);
-        output_cloud.header.frame_id = "map";
+        output_cloud.header.frame_id = "camera_link";
         output_cloud.header.stamp = timeNow;
         pub_cloud.publish(output_cloud);
         pub_normal_map.publish(normal_map);
