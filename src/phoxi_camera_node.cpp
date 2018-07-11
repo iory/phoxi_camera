@@ -273,6 +273,11 @@ void publish_frame(pho::api::PFrame MyFrame){
                                 MyFrame->Texture.Size.Width * sizeof(float), // stepSize
                                 MyFrame->Texture.operator[](0));
         depth.encoding = "32FC1";
+        for (int i = 0; i < MyFrame->DepthMap.Size.Height; ++i) {
+            for (int j = 0; j < MyFrame->DepthMap.Size.Width; ++j) {
+                MyFrame->DepthMap.At(i, j) *= 0.001f;
+            }
+        }
         sensor_msgs::fillImage(depth,
 			       sensor_msgs::image_encodings::TYPE_32FC1,
 			       MyFrame->DepthMap.Size.Height, // height
